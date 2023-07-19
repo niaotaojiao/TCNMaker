@@ -1,10 +1,10 @@
 import cv2 
 import numpy as np 
+import imutils
 from imutils.object_detection import non_max_suppression 
 
-
 # 'in.avi'是測試用的影片，將這邊改成 0 就可以用鏡頭了 
-filename = 'test_video/in.avi' 
+filename = 'test_video/in2.mp4'
 file_size = (1920,1080) 
 scale_ratio = 1
 
@@ -20,7 +20,8 @@ def main():
     if success:
       width = int(frame.shape[1] * scale_ratio)
       height = int(frame.shape[0] * scale_ratio)
-      frame = cv2.resize(frame, (width, height))
+      # frame = cv2.resize(frame, (width, height))
+      frame = imutils.resize(frame, width=min(width, height))
              
       orig_frame = frame.copy()
       (bounding_boxes, weights) = hog.detectMultiScale(frame, 
